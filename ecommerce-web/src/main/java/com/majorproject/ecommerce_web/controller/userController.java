@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.amstech.student.response.RestResponse;
 import com.majorproject.ecommerce_web.requestmodel.userSignupRequestModel;
 import com.majorproject.ecommerce_web.responsemodel.userResponseModel;
+import com.majorproject.ecommerce_web.restResponse.RestResponse;
 import com.majorproject.ecommerce_web.service.userService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +25,7 @@ public class userController {
 	private userService service ;
 	
 	public userController() {
+		
 		log.info("usercontroller : object is created ");
 	}
 	

@@ -47,10 +47,8 @@ public class userService {
 	     
 	   User savedUser = userRepo.save(SaveUser);
 	 
-	     log.info("User saved with ID: {}", savedUser.getUserId());
-
-	  
-//	  log.info(" User saved to DB: {}", user);
+//	     log.info("User saved with ID: {}", savedUser.getUserId());
+         log.info(" User saved to DB: {}", savedUser);
 	   return  userEntityToModel.getUserDetail(savedUser);
 	}
 
