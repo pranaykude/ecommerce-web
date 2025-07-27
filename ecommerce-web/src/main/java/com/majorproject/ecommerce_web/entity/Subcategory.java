@@ -3,22 +3,21 @@ package com.majorproject.ecommerce_web.entity;
 import java.io.Serializable;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 
 /**
- * The persistent class for the roles database table.
+ * The persistent class for the subcategories database table.
  * 
  */
 @Entity
-@Table(name="roles")
-@NamedQuery(name="Role.findAll", query="SELECT r FROM Role r")
-public class Role implements Serializable {
+@Table(name="subcategories")
+@NamedQuery(name="Subcategory.findAll", query="SELECT s FROM Subcategory s")
+public class Subcategory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="role_id")
-	private int roleId;
+	@Column(name="subcategory_id")
+	private int subcategoryId;
 
 	@Column(name="created_at")
 	private Timestamp createdAt;
@@ -26,24 +25,27 @@ public class Role implements Serializable {
 	@Column(name="is_deleted")
 	private int isDeleted;
 
+	private int level;
+
 	private String name;
 
 	@Column(name="updated_at")
 	private Timestamp updatedAt;
 
-	//bi-directional many-to-one association to UserRole
-	@OneToMany(mappedBy="role")
-	private List<UserRole> userRoles;
+	//bi-directional many-to-one association to Category
+	@ManyToOne
+	@JoinColumn(name="category_id")
+	private Category category;
 
-	public Role() {
+	public Subcategory() {
 	}
 
-	public int getRoleId() {
-		return this.roleId;
+	public int getSubcategoryId() {
+		return this.subcategoryId;
 	}
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
+	public void setSubcategoryId(int subcategoryId) {
+		this.subcategoryId = subcategoryId;
 	}
 
 	public Timestamp getCreatedAt() {
@@ -62,6 +64,14 @@ public class Role implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
+	public int getLevel() {
+		return this.level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	public String getName() {
 		return this.name;
 	}
@@ -78,26 +88,12 @@ public class Role implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public List<UserRole> getUserRoles() {
-		return this.userRoles;
+	public Category getCategory() {
+		return this.category;
 	}
 
-	public void setUserRoles(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
-
-	public UserRole addUserRole(UserRole userRole) {
-		getUserRoles().add(userRole);
-		userRole.setRole(this);
-
-		return userRole;
-	}
-
-	public UserRole removeUserRole(UserRole userRole) {
-		getUserRoles().remove(userRole);
-		userRole.setRole(null);
-
-		return userRole;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 }

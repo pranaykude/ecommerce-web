@@ -2,6 +2,7 @@ package com.majorproject.ecommerce_web.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -19,23 +20,20 @@ public class Category implements Serializable {
 	@Column(name="category_id")
 	private int categoryId;
 
+	@Column(name="created_at")
+	private Timestamp createdAt;
+
 	@Column(name="is_deleted")
 	private int isDeleted;
 
 	private String name;
 
-	//bi-directional many-to-one association to Category
-	@ManyToOne
-	@JoinColumn(name="parent_category_id")
-	private Category category;
+	@Column(name="updated_at")
+	private Timestamp updatedAt;
 
-	//bi-directional many-to-one association to Category
+	//bi-directional many-to-one association to Subcategory
 	@OneToMany(mappedBy="category")
-	private List<Category> categories;
-
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="category")
-	private List<Product> products;
+	private List<Subcategory> subcategories;
 
 	public Category() {
 	}
@@ -46,6 +44,14 @@ public class Category implements Serializable {
 
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public Timestamp getCreatedAt() {
+		return this.createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public int getIsDeleted() {
@@ -64,56 +70,34 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
-	public Category getCategory() {
-		return this.category;
+	public Timestamp getUpdatedAt() {
+		return this.updatedAt;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
-	public List<Category> getCategories() {
-		return this.categories;
+	public List<Subcategory> getSubcategories() {
+		return this.subcategories;
 	}
 
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
+	public void setSubcategories(List<Subcategory> subcategories) {
+		this.subcategories = subcategories;
 	}
 
-	public Category addCategory(Category category) {
-		getCategories().add(category);
-		category.setCategory(this);
+	public Subcategory addSubcategory(Subcategory subcategory) {
+		getSubcategories().add(subcategory);
+		subcategory.setCategory(this);
 
-		return category;
+		return subcategory;
 	}
 
-	public Category removeCategory(Category category) {
-		getCategories().remove(category);
-		category.setCategory(null);
+	public Subcategory removeSubcategory(Subcategory subcategory) {
+		getSubcategories().remove(subcategory);
+		subcategory.setCategory(null);
 
-		return category;
-	}
-
-	public List<Product> getProducts() {
-		return this.products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	public Product addProduct(Product product) {
-		getProducts().add(product);
-		product.setCategory(this);
-
-		return product;
-	}
-
-	public Product removeProduct(Product product) {
-		getProducts().remove(product);
-		product.setCategory(null);
-
-		return product;
+		return subcategory;
 	}
 
 }

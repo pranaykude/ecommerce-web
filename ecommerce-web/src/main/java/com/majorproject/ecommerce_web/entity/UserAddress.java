@@ -2,17 +2,17 @@ package com.majorproject.ecommerce_web.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
-import java.util.List;
+import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the addresses database table.
+ * The persistent class for the user_addresses database table.
  * 
  */
 @Entity
-@Table(name="addresses")
-@NamedQuery(name="Address.findAll", query="SELECT a FROM Address a")
-public class Address implements Serializable {
+@Table(name="user_addresses")
+@NamedQuery(name="UserAddress.findAll", query="SELECT u FROM UserAddress u")
+public class UserAddress implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,14 +22,30 @@ public class Address implements Serializable {
 	@Column(name="address_type")
 	private String addressType;
 
+	@Column(name="created_at")
+	private Timestamp createdAt;
+
+	@Column(name="full_name")
+	private String fullName;
+
 	@Column(name="is_default")
-	private int isDefault;
+	private byte isDefault;
 
 	@Column(name="is_deleted")
 	private int isDeleted;
 
-	@Column(name="postal_code")
-	private String postalCode;
+	private String landmark;
+
+	private String phone;
+
+	private String pincode;
+
+	@Lob
+	@Column(name="street_address")
+	private String streetAddress;
+
+	@Column(name="updated_at")
+	private Timestamp updatedAt;
 
 	//bi-directional many-to-one association to City
 	@ManyToOne
@@ -51,11 +67,7 @@ public class Address implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user;
 
-	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="address")
-	private List<Order> orders;
-
-	public Address() {
+	public UserAddress() {
 	}
 
 	public int getAddressId() {
@@ -74,11 +86,27 @@ public class Address implements Serializable {
 		this.addressType = addressType;
 	}
 
-	public int getIsDefault() {
+	public Timestamp getCreatedAt() {
+		return this.createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public String getFullName() {
+		return this.fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public byte getIsDefault() {
 		return this.isDefault;
 	}
 
-	public void setIsDefault(int isDefault) {
+	public void setIsDefault(byte isDefault) {
 		this.isDefault = isDefault;
 	}
 
@@ -90,12 +118,44 @@ public class Address implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
-	public String getPostalCode() {
-		return this.postalCode;
+	public String getLandmark() {
+		return this.landmark;
 	}
 
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
+	public void setLandmark(String landmark) {
+		this.landmark = landmark;
+	}
+
+	public String getPhone() {
+		return this.phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getPincode() {
+		return this.pincode;
+	}
+
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}
+
+	public String getStreetAddress() {
+		return this.streetAddress;
+	}
+
+	public void setStreetAddress(String streetAddress) {
+		this.streetAddress = streetAddress;
+	}
+
+	public Timestamp getUpdatedAt() {
+		return this.updatedAt;
+	}
+
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	public City getCity() {
@@ -128,28 +188,6 @@ public class Address implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public List<Order> getOrders() {
-		return this.orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-
-	public Order addOrder(Order order) {
-		getOrders().add(order);
-		order.setAddress(this);
-
-		return order;
-	}
-
-	public Order removeOrder(Order order) {
-		getOrders().remove(order);
-		order.setAddress(null);
-
-		return order;
 	}
 
 }

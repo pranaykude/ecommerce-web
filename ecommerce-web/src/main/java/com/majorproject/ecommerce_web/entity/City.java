@@ -2,6 +2,7 @@ package com.majorproject.ecommerce_web.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -19,19 +20,25 @@ public class City implements Serializable {
 	@Column(name="city_id")
 	private int cityId;
 
+	@Column(name="created_at")
+	private Timestamp createdAt;
+
 	@Column(name="is_deleted")
 	private int isDeleted;
 
 	private String name;
 
-	//bi-directional many-to-one association to Address
-	@OneToMany(mappedBy="city")
-	private List<Address> addresses;
+	@Column(name="updated_at")
+	private Timestamp updatedAt;
 
 	//bi-directional many-to-one association to State
 	@ManyToOne
 	@JoinColumn(name="state_id")
 	private State state;
+
+	//bi-directional many-to-one association to UserAddress
+	@OneToMany(mappedBy="city")
+	private List<UserAddress> userAddresses;
 
 	public City() {
 	}
@@ -42,6 +49,14 @@ public class City implements Serializable {
 
 	public void setCityId(int cityId) {
 		this.cityId = cityId;
+	}
+
+	public Timestamp getCreatedAt() {
+		return this.createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public int getIsDeleted() {
@@ -60,26 +75,12 @@ public class City implements Serializable {
 		this.name = name;
 	}
 
-	public List<Address> getAddresses() {
-		return this.addresses;
+	public Timestamp getUpdatedAt() {
+		return this.updatedAt;
 	}
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
-
-	public Address addAddress(Address address) {
-		getAddresses().add(address);
-		address.setCity(this);
-
-		return address;
-	}
-
-	public Address removeAddress(Address address) {
-		getAddresses().remove(address);
-		address.setCity(null);
-
-		return address;
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	public State getState() {
@@ -88,6 +89,28 @@ public class City implements Serializable {
 
 	public void setState(State state) {
 		this.state = state;
+	}
+
+	public List<UserAddress> getUserAddresses() {
+		return this.userAddresses;
+	}
+
+	public void setUserAddresses(List<UserAddress> userAddresses) {
+		this.userAddresses = userAddresses;
+	}
+
+	public UserAddress addUserAddress(UserAddress userAddress) {
+		getUserAddresses().add(userAddress);
+		userAddress.setCity(this);
+
+		return userAddress;
+	}
+
+	public UserAddress removeUserAddress(UserAddress userAddress) {
+		getUserAddresses().remove(userAddress);
+		userAddress.setCity(null);
+
+		return userAddress;
 	}
 
 }

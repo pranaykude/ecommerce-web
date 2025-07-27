@@ -6,17 +6,21 @@ import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the cart database table.
+ * The persistent class for the product_reviews database table.
  * 
  */
 @Entity
-@NamedQuery(name="Cart.findAll", query="SELECT c FROM Cart c")
-public class Cart implements Serializable {
+@Table(name="product_reviews")
+@NamedQuery(name="ProductReview.findAll", query="SELECT p FROM ProductReview p")
+public class ProductReview implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="cart_id")
-	private int cartId;
+	@Column(name="review_id")
+	private int reviewId;
+
+	@Lob
+	private String comment;
 
 	@Column(name="created_at")
 	private Timestamp createdAt;
@@ -24,14 +28,14 @@ public class Cart implements Serializable {
 	@Column(name="is_deleted")
 	private int isDeleted;
 
-	private int quantity;
+	private int rating;
 
 	@Column(name="updated_at")
 	private Timestamp updatedAt;
 
 	//bi-directional many-to-one association to ProductVariant
 	@ManyToOne
-	@JoinColumn(name="variant_id")
+	@JoinColumn(name="product_variant_id")
 	private ProductVariant productVariant;
 
 	//bi-directional many-to-one association to User
@@ -39,15 +43,23 @@ public class Cart implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user;
 
-	public Cart() {
+	public ProductReview() {
 	}
 
-	public int getCartId() {
-		return this.cartId;
+	public int getReviewId() {
+		return this.reviewId;
 	}
 
-	public void setCartId(int cartId) {
-		this.cartId = cartId;
+	public void setReviewId(int reviewId) {
+		this.reviewId = reviewId;
+	}
+
+	public String getComment() {
+		return this.comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public Timestamp getCreatedAt() {
@@ -66,12 +78,12 @@ public class Cart implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
-	public int getQuantity() {
-		return this.quantity;
+	public int getRating() {
+		return this.rating;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
 	public Timestamp getUpdatedAt() {

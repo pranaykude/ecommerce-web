@@ -6,17 +6,18 @@ import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the cart database table.
+ * The persistent class for the return_requests database table.
  * 
  */
 @Entity
-@NamedQuery(name="Cart.findAll", query="SELECT c FROM Cart c")
-public class Cart implements Serializable {
+@Table(name="return_requests")
+@NamedQuery(name="ReturnRequest.findAll", query="SELECT r FROM ReturnRequest r")
+public class ReturnRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="cart_id")
-	private int cartId;
+	@Column(name="return_id")
+	private int returnId;
 
 	@Column(name="created_at")
 	private Timestamp createdAt;
@@ -24,30 +25,33 @@ public class Cart implements Serializable {
 	@Column(name="is_deleted")
 	private int isDeleted;
 
-	private int quantity;
+	@Lob
+	private String reason;
+
+	private String status;
 
 	@Column(name="updated_at")
 	private Timestamp updatedAt;
 
-	//bi-directional many-to-one association to ProductVariant
+	//bi-directional many-to-one association to OrderItem
 	@ManyToOne
-	@JoinColumn(name="variant_id")
-	private ProductVariant productVariant;
+	@JoinColumn(name="order_item_id")
+	private OrderItem orderItem;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 
-	public Cart() {
+	public ReturnRequest() {
 	}
 
-	public int getCartId() {
-		return this.cartId;
+	public int getReturnId() {
+		return this.returnId;
 	}
 
-	public void setCartId(int cartId) {
-		this.cartId = cartId;
+	public void setReturnId(int returnId) {
+		this.returnId = returnId;
 	}
 
 	public Timestamp getCreatedAt() {
@@ -66,12 +70,20 @@ public class Cart implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
-	public int getQuantity() {
-		return this.quantity;
+	public String getReason() {
+		return this.reason;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Timestamp getUpdatedAt() {
@@ -82,12 +94,12 @@ public class Cart implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public ProductVariant getProductVariant() {
-		return this.productVariant;
+	public OrderItem getOrderItem() {
+		return this.orderItem;
 	}
 
-	public void setProductVariant(ProductVariant productVariant) {
-		this.productVariant = productVariant;
+	public void setOrderItem(OrderItem orderItem) {
+		this.orderItem = orderItem;
 	}
 
 	public User getUser() {

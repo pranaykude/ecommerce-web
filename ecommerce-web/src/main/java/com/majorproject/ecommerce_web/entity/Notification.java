@@ -2,19 +2,22 @@ package com.majorproject.ecommerce_web.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the orders database table.
+ * The persistent class for the notifications database table.
  * 
  */
 @Entity
-@Table(name="orders")
-@NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
-public class Order implements Serializable {
+@Table(name="notifications")
+@NamedQuery(name="Notification.findAll", query="SELECT n FROM Notification n")
+public class Notification implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(name="notification_id")
+	private int notificationId;
 
 	@Column(name="created_at")
 	private Timestamp createdAt;
@@ -22,29 +25,31 @@ public class Order implements Serializable {
 	@Column(name="is_deleted")
 	private int isDeleted;
 
-	@Id
-	@Column(name="order_id")
-	private int orderId;
+	@Column(name="is_read")
+	private byte isRead;
 
-	private String status;
+	@Lob
+	private String message;
 
-	@Column(name="total_amount")
-	private BigDecimal totalAmount;
+	private String type;
 
 	@Column(name="updated_at")
 	private Timestamp updatedAt;
-
-	//bi-directional many-to-one association to Coupon
-	@ManyToOne
-	@JoinColumn(name="coupon_id")
-	private Coupon coupon;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 
-	public Order() {
+	public Notification() {
+	}
+
+	public int getNotificationId() {
+		return this.notificationId;
+	}
+
+	public void setNotificationId(int notificationId) {
+		this.notificationId = notificationId;
 	}
 
 	public Timestamp getCreatedAt() {
@@ -63,28 +68,28 @@ public class Order implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
-	public int getOrderId() {
-		return this.orderId;
+	public byte getIsRead() {
+		return this.isRead;
 	}
 
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
+	public void setIsRead(byte isRead) {
+		this.isRead = isRead;
 	}
 
-	public String getStatus() {
-		return this.status;
+	public String getMessage() {
+		return this.message;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
-	public BigDecimal getTotalAmount() {
-		return this.totalAmount;
+	public String getType() {
+		return this.type;
 	}
 
-	public void setTotalAmount(BigDecimal totalAmount) {
-		this.totalAmount = totalAmount;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public Timestamp getUpdatedAt() {
@@ -93,14 +98,6 @@ public class Order implements Serializable {
 
 	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-
-	public Coupon getCoupon() {
-		return this.coupon;
-	}
-
-	public void setCoupon(Coupon coupon) {
-		this.coupon = coupon;
 	}
 
 	public User getUser() {

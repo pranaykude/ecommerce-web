@@ -2,7 +2,7 @@ package com.majorproject.ecommerce_web.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
-import java.util.List;
+import java.sql.Timestamp;
 
 
 /**
@@ -19,17 +19,19 @@ public class Brand implements Serializable {
 	@Column(name="brand_id")
 	private int brandId;
 
+	@Column(name="created_at")
+	private Timestamp createdAt;
+
 	@Lob
 	private String description;
 
 	@Column(name="is_deleted")
-	private int isDeleted;
+	private byte isDeleted;
 
 	private String name;
 
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="brand")
-	private List<Product> products;
+	@Column(name="updated_at")
+	private Timestamp updatedAt;
 
 	public Brand() {
 	}
@@ -42,6 +44,14 @@ public class Brand implements Serializable {
 		this.brandId = brandId;
 	}
 
+	public Timestamp getCreatedAt() {
+		return this.createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+
 	public String getDescription() {
 		return this.description;
 	}
@@ -50,11 +60,11 @@ public class Brand implements Serializable {
 		this.description = description;
 	}
 
-	public int getIsDeleted() {
+	public byte getIsDeleted() {
 		return this.isDeleted;
 	}
 
-	public void setIsDeleted(int isDeleted) {
+	public void setIsDeleted(byte isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
@@ -66,26 +76,12 @@ public class Brand implements Serializable {
 		this.name = name;
 	}
 
-	public List<Product> getProducts() {
-		return this.products;
+	public Timestamp getUpdatedAt() {
+		return this.updatedAt;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	public Product addProduct(Product product) {
-		getProducts().add(product);
-		product.setBrand(this);
-
-		return product;
-	}
-
-	public Product removeProduct(Product product) {
-		getProducts().remove(product);
-		product.setBrand(null);
-
-		return product;
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 }

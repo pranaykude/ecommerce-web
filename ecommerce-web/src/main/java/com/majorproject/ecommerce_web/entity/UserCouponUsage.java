@@ -2,37 +2,31 @@ package com.majorproject.ecommerce_web.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the orders database table.
+ * The persistent class for the user_coupon_usage database table.
  * 
  */
 @Entity
-@Table(name="orders")
-@NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
-public class Order implements Serializable {
+@Table(name="user_coupon_usage")
+@NamedQuery(name="UserCouponUsage.findAll", query="SELECT u FROM UserCouponUsage u")
+public class UserCouponUsage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="created_at")
-	private Timestamp createdAt;
+	@Id
+	@Column(name="usage_id")
+	private int usageId;
 
 	@Column(name="is_deleted")
 	private int isDeleted;
 
-	@Id
-	@Column(name="order_id")
-	private int orderId;
-
-	private String status;
-
-	@Column(name="total_amount")
-	private BigDecimal totalAmount;
-
 	@Column(name="updated_at")
 	private Timestamp updatedAt;
+
+	@Column(name="used_at")
+	private Timestamp usedAt;
 
 	//bi-directional many-to-one association to Coupon
 	@ManyToOne
@@ -44,15 +38,15 @@ public class Order implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user;
 
-	public Order() {
+	public UserCouponUsage() {
 	}
 
-	public Timestamp getCreatedAt() {
-		return this.createdAt;
+	public int getUsageId() {
+		return this.usageId;
 	}
 
-	public void setCreatedAt(Timestamp createdAt) {
-		this.createdAt = createdAt;
+	public void setUsageId(int usageId) {
+		this.usageId = usageId;
 	}
 
 	public int getIsDeleted() {
@@ -63,36 +57,20 @@ public class Order implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
-	public int getOrderId() {
-		return this.orderId;
-	}
-
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
-	}
-
-	public String getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public BigDecimal getTotalAmount() {
-		return this.totalAmount;
-	}
-
-	public void setTotalAmount(BigDecimal totalAmount) {
-		this.totalAmount = totalAmount;
-	}
-
 	public Timestamp getUpdatedAt() {
 		return this.updatedAt;
 	}
 
 	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public Timestamp getUsedAt() {
+		return this.usedAt;
+	}
+
+	public void setUsedAt(Timestamp usedAt) {
+		this.usedAt = usedAt;
 	}
 
 	public Coupon getCoupon() {

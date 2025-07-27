@@ -3,6 +3,7 @@ package com.majorproject.ecommerce_web.entity;
 import java.io.Serializable;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -22,37 +23,35 @@ public class ProductVariant implements Serializable {
 
 	private String color;
 
-	@Column(name="discount_percentage")
-	private BigDecimal discountPercentage;
+	@Column(name="created_at")
+	private Timestamp createdAt;
+
+	private BigDecimal discount;
 
 	@Column(name="is_deleted")
 	private int isDeleted;
 
 	private BigDecimal price;
 
+	private int quantity;
+
 	private String size;
 
-	@Column(name="sku_code")
-	private String skuCode;
+	@Column(name="updated_at")
+	private Timestamp updatedAt;
 
-	private int stock;
-
-	//bi-directional many-to-one association to CartItem
+	//bi-directional many-to-one association to Cart
 	@OneToMany(mappedBy="productVariant")
-	private List<CartItem> cartItems;
+	private List<Cart> carts;
 
-	//bi-directional many-to-one association to ProductImage
+	//bi-directional many-to-one association to ProductReview
 	@OneToMany(mappedBy="productVariant")
-	private List<ProductImage> productImages;
+	private List<ProductReview> productReviews;
 
 	//bi-directional many-to-one association to Product
 	@ManyToOne
 	@JoinColumn(name="product_id")
 	private Product product;
-
-	//bi-directional many-to-one association to WishlistItem
-	@OneToMany(mappedBy="productVariant")
-	private List<WishlistItem> wishlistItems;
 
 	public ProductVariant() {
 	}
@@ -73,12 +72,20 @@ public class ProductVariant implements Serializable {
 		this.color = color;
 	}
 
-	public BigDecimal getDiscountPercentage() {
-		return this.discountPercentage;
+	public Timestamp getCreatedAt() {
+		return this.createdAt;
 	}
 
-	public void setDiscountPercentage(BigDecimal discountPercentage) {
-		this.discountPercentage = discountPercentage;
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public BigDecimal getDiscount() {
+		return this.discount;
+	}
+
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
 	}
 
 	public int getIsDeleted() {
@@ -97,6 +104,14 @@ public class ProductVariant implements Serializable {
 		this.price = price;
 	}
 
+	public int getQuantity() {
+		return this.quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	public String getSize() {
 		return this.size;
 	}
@@ -105,64 +120,56 @@ public class ProductVariant implements Serializable {
 		this.size = size;
 	}
 
-	public String getSkuCode() {
-		return this.skuCode;
+	public Timestamp getUpdatedAt() {
+		return this.updatedAt;
 	}
 
-	public void setSkuCode(String skuCode) {
-		this.skuCode = skuCode;
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
-	public int getStock() {
-		return this.stock;
+	public List<Cart> getCarts() {
+		return this.carts;
 	}
 
-	public void setStock(int stock) {
-		this.stock = stock;
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
 	}
 
-	public List<CartItem> getCartItems() {
-		return this.cartItems;
+	public Cart addCart(Cart cart) {
+		getCarts().add(cart);
+		cart.setProductVariant(this);
+
+		return cart;
 	}
 
-	public void setCartItems(List<CartItem> cartItems) {
-		this.cartItems = cartItems;
+	public Cart removeCart(Cart cart) {
+		getCarts().remove(cart);
+		cart.setProductVariant(null);
+
+		return cart;
 	}
 
-	public CartItem addCartItem(CartItem cartItem) {
-		getCartItems().add(cartItem);
-		cartItem.setProductVariant(this);
-
-		return cartItem;
+	public List<ProductReview> getProductReviews() {
+		return this.productReviews;
 	}
 
-	public CartItem removeCartItem(CartItem cartItem) {
-		getCartItems().remove(cartItem);
-		cartItem.setProductVariant(null);
-
-		return cartItem;
+	public void setProductReviews(List<ProductReview> productReviews) {
+		this.productReviews = productReviews;
 	}
 
-	public List<ProductImage> getProductImages() {
-		return this.productImages;
+	public ProductReview addProductReview(ProductReview productReview) {
+		getProductReviews().add(productReview);
+		productReview.setProductVariant(this);
+
+		return productReview;
 	}
 
-	public void setProductImages(List<ProductImage> productImages) {
-		this.productImages = productImages;
-	}
+	public ProductReview removeProductReview(ProductReview productReview) {
+		getProductReviews().remove(productReview);
+		productReview.setProductVariant(null);
 
-	public ProductImage addProductImage(ProductImage productImage) {
-		getProductImages().add(productImage);
-		productImage.setProductVariant(this);
-
-		return productImage;
-	}
-
-	public ProductImage removeProductImage(ProductImage productImage) {
-		getProductImages().remove(productImage);
-		productImage.setProductVariant(null);
-
-		return productImage;
+		return productReview;
 	}
 
 	public Product getProduct() {
@@ -171,28 +178,6 @@ public class ProductVariant implements Serializable {
 
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-
-	public List<WishlistItem> getWishlistItems() {
-		return this.wishlistItems;
-	}
-
-	public void setWishlistItems(List<WishlistItem> wishlistItems) {
-		this.wishlistItems = wishlistItems;
-	}
-
-	public WishlistItem addWishlistItem(WishlistItem wishlistItem) {
-		getWishlistItems().add(wishlistItem);
-		wishlistItem.setProductVariant(this);
-
-		return wishlistItem;
-	}
-
-	public WishlistItem removeWishlistItem(WishlistItem wishlistItem) {
-		getWishlistItems().remove(wishlistItem);
-		wishlistItem.setProductVariant(null);
-
-		return wishlistItem;
 	}
 
 }

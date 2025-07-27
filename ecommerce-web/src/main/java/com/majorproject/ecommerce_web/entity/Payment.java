@@ -2,7 +2,7 @@ package com.majorproject.ecommerce_web.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
-import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 
 /**
@@ -19,7 +19,8 @@ public class Payment implements Serializable {
 	@Column(name="payment_id")
 	private int paymentId;
 
-	private BigDecimal amount;
+	@Column(name="created_at")
+	private Timestamp createdAt;
 
 	@Column(name="is_deleted")
 	private int isDeleted;
@@ -27,11 +28,17 @@ public class Payment implements Serializable {
 	@Column(name="order_id")
 	private int orderId;
 
+	@Column(name="payment_mode")
+	private String paymentMode;
+
 	@Column(name="payment_status")
 	private String paymentStatus;
 
 	@Column(name="transaction_id")
 	private String transactionId;
+
+	@Column(name="updated_at")
+	private Timestamp updatedAt;
 
 	public Payment() {
 	}
@@ -44,12 +51,12 @@ public class Payment implements Serializable {
 		this.paymentId = paymentId;
 	}
 
-	public BigDecimal getAmount() {
-		return this.amount;
+	public Timestamp getCreatedAt() {
+		return this.createdAt;
 	}
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public int getIsDeleted() {
@@ -68,6 +75,14 @@ public class Payment implements Serializable {
 		this.orderId = orderId;
 	}
 
+	public String getPaymentMode() {
+		return this.paymentMode;
+	}
+
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
+	}
+
 	public String getPaymentStatus() {
 		return this.paymentStatus;
 	}
@@ -82,6 +97,14 @@ public class Payment implements Serializable {
 
 	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
+	}
+
+	public Timestamp getUpdatedAt() {
+		return this.updatedAt;
+	}
+
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 }

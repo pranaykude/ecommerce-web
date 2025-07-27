@@ -2,6 +2,7 @@ package com.majorproject.ecommerce_web.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -19,14 +20,16 @@ public class State implements Serializable {
 	@Column(name="state_id")
 	private int stateId;
 
+	@Column(name="created_at")
+	private Timestamp createdAt;
+
 	@Column(name="is_deleted")
 	private int isDeleted;
 
 	private String name;
 
-	//bi-directional many-to-one association to Address
-	@OneToMany(mappedBy="state")
-	private List<Address> addresses;
+	@Column(name="updated_at")
+	private Timestamp updatedAt;
 
 	//bi-directional many-to-one association to City
 	@OneToMany(mappedBy="state")
@@ -37,6 +40,10 @@ public class State implements Serializable {
 	@JoinColumn(name="country_id")
 	private Country country;
 
+	//bi-directional many-to-one association to UserAddress
+	@OneToMany(mappedBy="state")
+	private List<UserAddress> userAddresses;
+
 	public State() {
 	}
 
@@ -46,6 +53,14 @@ public class State implements Serializable {
 
 	public void setStateId(int stateId) {
 		this.stateId = stateId;
+	}
+
+	public Timestamp getCreatedAt() {
+		return this.createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public int getIsDeleted() {
@@ -64,26 +79,12 @@ public class State implements Serializable {
 		this.name = name;
 	}
 
-	public List<Address> getAddresses() {
-		return this.addresses;
+	public Timestamp getUpdatedAt() {
+		return this.updatedAt;
 	}
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
-
-	public Address addAddress(Address address) {
-		getAddresses().add(address);
-		address.setState(this);
-
-		return address;
-	}
-
-	public Address removeAddress(Address address) {
-		getAddresses().remove(address);
-		address.setState(null);
-
-		return address;
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	public List<City> getCities() {
@@ -114,6 +115,28 @@ public class State implements Serializable {
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+	public List<UserAddress> getUserAddresses() {
+		return this.userAddresses;
+	}
+
+	public void setUserAddresses(List<UserAddress> userAddresses) {
+		this.userAddresses = userAddresses;
+	}
+
+	public UserAddress addUserAddress(UserAddress userAddress) {
+		getUserAddresses().add(userAddress);
+		userAddress.setState(this);
+
+		return userAddress;
+	}
+
+	public UserAddress removeUserAddress(UserAddress userAddress) {
+		getUserAddresses().remove(userAddress);
+		userAddress.setState(null);
+
+		return userAddress;
 	}
 
 }

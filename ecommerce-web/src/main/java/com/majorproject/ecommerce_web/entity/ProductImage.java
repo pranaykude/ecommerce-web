@@ -1,90 +1,108 @@
 package com.majorproject.ecommerce_web.entity;
 
-import java.io.Serializable;
 import jakarta.persistence.*;
+import java.io.Serializable;
+import java.sql.Timestamp;
 
-
-/**
- * The persistent class for the product_images database table.
- * 
- */
 @Entity
-@Table(name="product_images")
-@NamedQuery(name="ProductImage.findAll", query="SELECT p FROM ProductImage p")
+@Table(name = "product_images")
 public class ProductImage implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="image_id")
-	private int imageId;
+    private static final long serialVersionUID = 1L;
 
-	@Lob
-	@Column(name="image_url")
-	private String imageUrl;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "image_id")
+    private int imageId;
 
-	@Column(name="img_type")
-	private String imgType;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-	@Column(name="is_deleted")
-	private int isDeleted;
+    @ManyToOne
+    @JoinColumn(name = "variant_id")
+    private ProductVariant productVariant;
 
-	@Column(name="is_primary")
-	private int isPrimary;
+    @Column(name = "image_url", columnDefinition = "TEXT", nullable = false)
+    private String imageUrl;
 
-	//bi-directional many-to-one association to ProductVariant
-	@ManyToOne
-	@JoinColumn(name="variant_id")
-	private ProductVariant productVariant;
+    @Column(name = "is_primary")
+    private boolean isPrimary;
 
-	public ProductImage() {
-	}
+    @Column(name = "created_at", updatable = false)
+    private Timestamp createdAt;
 
-	public int getImageId() {
-		return this.imageId;
-	}
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
 
-	public void setImageId(int imageId) {
-		this.imageId = imageId;
-	}
+    @Column(name = "is_deleted")
+    private int isDeleted;
 
-	public String getImageUrl() {
-		return this.imageUrl;
-	}
+    // ----- Constructors -----
+    public ProductImage() {}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+    // ----- Getters and Setters -----
+    public int getImageId() {
+        return imageId;
+    }
 
-	public String getImgType() {
-		return this.imgType;
-	}
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
 
-	public void setImgType(String imgType) {
-		this.imgType = imgType;
-	}
+    public Product getProduct() {
+        return product;
+    }
 
-	public int getIsDeleted() {
-		return this.isDeleted;
-	}
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-	public void setIsDeleted(int isDeleted) {
-		this.isDeleted = isDeleted;
-	}
+    public ProductVariant getProductVariant() {
+        return productVariant;
+    }
 
-	public int getIsPrimary() {
-		return this.isPrimary;
-	}
+    public void setProductVariant(ProductVariant productVariant) {
+        this.productVariant = productVariant;
+    }
 
-	public void setIsPrimary(int isPrimary) {
-		this.isPrimary = isPrimary;
-	}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-	public ProductVariant getProductVariant() {
-		return this.productVariant;
-	}
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-	public void setProductVariant(ProductVariant productVariant) {
-		this.productVariant = productVariant;
-	}
+    public boolean isPrimary() {
+        return isPrimary;
+    }
 
+    public void setPrimary(boolean primary) {
+        isPrimary = primary;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public int getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }

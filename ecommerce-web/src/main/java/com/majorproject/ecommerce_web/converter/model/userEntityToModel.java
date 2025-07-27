@@ -22,16 +22,27 @@ public class userEntityToModel {
 		responseModel.setDob(user.getDob());
 		responseModel.setEmail(user.getEmail());
 		responseModel.setMobileNumber(user.getMobileNumber());
-		responseModel.setLocation(user.getLocation());
+	
 		responseModel.setAlternateMobileNumber(user.getAlternateMobileNumber());
 		responseModel.setHintName(user.getHintName());
 		 log.info(" Final Response Object for frontend: {}", responseModel);
 		 
 		return responseModel;
 	}
-	
+	public userResponseModel getchangeStatus(User user) {
+		userResponseModel responseModel = new userResponseModel();
+		    responseModel.setUserId(user.getUserId());
+		    responseModel.setFullName(user.getFullName());
+		    responseModel.setDob(user.getDob());
+		    responseModel.setEmail(user.getEmail());
+		    responseModel.setMobileNumber(user.getMobileNumber());
+		
+		    responseModel.setIsDeleted(user.getIsDeleted()); 
+		    return responseModel;
+	}
 	
 
+	
 	
 	
 }

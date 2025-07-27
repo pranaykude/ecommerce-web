@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
 	<persistence-unit name="ecommerce-web">
-		<class>com.majorproject.ecommerce_web.entity.Address</class>
-		<class>com.majorproject.ecommerce_web.entity.Banner</class>
+		<class>com.majorproject.ecommerce_web.entity.ProductImage</class>
+		<class>com.majorproject.ecommerce_web.entity.Product</class>
+		<class>com.majorproject.ecommerce_web.entity.AdminLog</class>
 		<class>com.majorproject.ecommerce_web.entity.Brand</class>
-		<class>com.majorproject.ecommerce_web.entity.CartItem</class>
 		<class>com.majorproject.ecommerce_web.entity.Cart</class>
 		<class>com.majorproject.ecommerce_web.entity.Category</class>
 		<class>com.majorproject.ecommerce_web.entity.City</class>
 		<class>com.majorproject.ecommerce_web.entity.Country</class>
+		<class>com.majorproject.ecommerce_web.entity.Coupon</class>
+		<class>com.majorproject.ecommerce_web.entity.Notification</class>
 		<class>com.majorproject.ecommerce_web.entity.OrderItem</class>
 		<class>com.majorproject.ecommerce_web.entity.Order</class>
-		<class>com.majorproject.ecommerce_web.entity.Otp</class>
 		<class>com.majorproject.ecommerce_web.entity.Payment</class>
-		<class>com.majorproject.ecommerce_web.entity.ProductImage</class>
+		<class>com.majorproject.ecommerce_web.entity.ProductReview</class>
 		<class>com.majorproject.ecommerce_web.entity.ProductVariant</class>
-		<class>com.majorproject.ecommerce_web.entity.Product</class>
+		<class>com.majorproject.ecommerce_web.entity.ProductView</class>
+		<class>com.majorproject.ecommerce_web.entity.ReturnRequest</class>
 		<class>com.majorproject.ecommerce_web.entity.Role</class>
+		<class>com.majorproject.ecommerce_web.entity.ShipmentTracking</class>
 		<class>com.majorproject.ecommerce_web.entity.State</class>
+		<class>com.majorproject.ecommerce_web.entity.Subcategory</class>
+		<class>com.majorproject.ecommerce_web.entity.UserAddress</class>
+		<class>com.majorproject.ecommerce_web.entity.UserCouponUsage</class>
+		<class>com.majorproject.ecommerce_web.entity.UserRole</class>
+		<class>com.majorproject.ecommerce_web.entity.UserRolePK</class>
 		<class>com.majorproject.ecommerce_web.entity.User</class>
-		<class>com.majorproject.ecommerce_web.entity.WishlistItem</class>
+		<class>com.majorproject.ecommerce_web.entity.WebsiteAsset</class>
 		<class>com.majorproject.ecommerce_web.entity.Wishlist</class>
 	</persistence-unit>
 </persistence>

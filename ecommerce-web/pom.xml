@@ -63,6 +63,11 @@
 		</dependency>
 		    <!-- Maven -->
     <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+		    <!-- Maven -->
+    <dependency>
         <groupId>com.h2database</groupId>
         <artifactId>h2</artifactId>
         <scope>runtime</scope>

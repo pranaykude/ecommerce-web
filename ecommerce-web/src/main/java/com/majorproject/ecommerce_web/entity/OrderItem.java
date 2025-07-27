@@ -3,6 +3,8 @@ package com.majorproject.ecommerce_web.entity;
 import java.io.Serializable;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -19,19 +21,28 @@ public class OrderItem implements Serializable {
 	@Column(name="order_item_id")
 	private int orderItemId;
 
+	@Column(name="created_at")
+	private Timestamp createdAt;
+
 	@Column(name="is_deleted")
 	private int isDeleted;
 
 	@Column(name="order_id")
 	private int orderId;
 
-	@Column(name="price_at_purchase")
-	private BigDecimal priceAtPurchase;
+	private BigDecimal price;
 
 	private int quantity;
 
+	@Column(name="updated_at")
+	private Timestamp updatedAt;
+
 	@Column(name="variant_id")
 	private int variantId;
+
+	//bi-directional many-to-one association to ReturnRequest
+	@OneToMany(mappedBy="orderItem")
+	private List<ReturnRequest> returnRequests;
 
 	public OrderItem() {
 	}
@@ -42,6 +53,14 @@ public class OrderItem implements Serializable {
 
 	public void setOrderItemId(int orderItemId) {
 		this.orderItemId = orderItemId;
+	}
+
+	public Timestamp getCreatedAt() {
+		return this.createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public int getIsDeleted() {
@@ -60,12 +79,12 @@ public class OrderItem implements Serializable {
 		this.orderId = orderId;
 	}
 
-	public BigDecimal getPriceAtPurchase() {
-		return this.priceAtPurchase;
+	public BigDecimal getPrice() {
+		return this.price;
 	}
 
-	public void setPriceAtPurchase(BigDecimal priceAtPurchase) {
-		this.priceAtPurchase = priceAtPurchase;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 	public int getQuantity() {
@@ -76,12 +95,42 @@ public class OrderItem implements Serializable {
 		this.quantity = quantity;
 	}
 
+	public Timestamp getUpdatedAt() {
+		return this.updatedAt;
+	}
+
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
 	public int getVariantId() {
 		return this.variantId;
 	}
 
 	public void setVariantId(int variantId) {
 		this.variantId = variantId;
+	}
+
+	public List<ReturnRequest> getReturnRequests() {
+		return this.returnRequests;
+	}
+
+	public void setReturnRequests(List<ReturnRequest> returnRequests) {
+		this.returnRequests = returnRequests;
+	}
+
+	public ReturnRequest addReturnRequest(ReturnRequest returnRequest) {
+		getReturnRequests().add(returnRequest);
+		returnRequest.setOrderItem(this);
+
+		return returnRequest;
+	}
+
+	public ReturnRequest removeReturnRequest(ReturnRequest returnRequest) {
+		getReturnRequests().remove(returnRequest);
+		returnRequest.setOrderItem(null);
+
+		return returnRequest;
 	}
 
 }

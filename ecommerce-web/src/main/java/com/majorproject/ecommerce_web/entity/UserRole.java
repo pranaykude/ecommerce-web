@@ -6,17 +6,17 @@ import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the cart database table.
+ * The persistent class for the user_roles database table.
  * 
  */
 @Entity
-@NamedQuery(name="Cart.findAll", query="SELECT c FROM Cart c")
-public class Cart implements Serializable {
+@Table(name="user_roles")
+@NamedQuery(name="UserRole.findAll", query="SELECT u FROM UserRole u")
+public class UserRole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="cart_id")
-	private int cartId;
+	@EmbeddedId
+	private UserRolePK id;
 
 	@Column(name="created_at")
 	private Timestamp createdAt;
@@ -24,30 +24,28 @@ public class Cart implements Serializable {
 	@Column(name="is_deleted")
 	private int isDeleted;
 
-	private int quantity;
-
 	@Column(name="updated_at")
 	private Timestamp updatedAt;
 
-	//bi-directional many-to-one association to ProductVariant
+	//bi-directional many-to-one association to Role
 	@ManyToOne
-	@JoinColumn(name="variant_id")
-	private ProductVariant productVariant;
+	@JoinColumn(name="role_id")
+	private Role role;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 
-	public Cart() {
+	public UserRole() {
 	}
 
-	public int getCartId() {
-		return this.cartId;
+	public UserRolePK getId() {
+		return this.id;
 	}
 
-	public void setCartId(int cartId) {
-		this.cartId = cartId;
+	public void setId(UserRolePK id) {
+		this.id = id;
 	}
 
 	public Timestamp getCreatedAt() {
@@ -66,14 +64,6 @@ public class Cart implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
-	public int getQuantity() {
-		return this.quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
 	public Timestamp getUpdatedAt() {
 		return this.updatedAt;
 	}
@@ -82,12 +72,12 @@ public class Cart implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public ProductVariant getProductVariant() {
-		return this.productVariant;
+	public Role getRole() {
+		return this.role;
 	}
 
-	public void setProductVariant(ProductVariant productVariant) {
-		this.productVariant = productVariant;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public User getUser() {

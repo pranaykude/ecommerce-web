@@ -3,6 +3,7 @@ package com.majorproject.ecommerce_web.entity;
 import java.io.Serializable;
 import jakarta.persistence.*;
 import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -17,12 +18,17 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="user_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
+
+	private String address;
 
 	@Column(name="alternate_mobile_number")
 	private String alternateMobileNumber;
+
+	@Column(name="created_at")
+	private Timestamp createdAt;
 
 	@Temporal(TemporalType.DATE)
 	private Date dob;
@@ -40,41 +46,53 @@ public class User implements Serializable {
 	@Column(name="is_deleted")
 	private int isDeleted;
 
-	private String location;
-
 	@Column(name="mobile_number")
 	private String mobileNumber;
 
 	private String password;
 
-	//bi-directional many-to-one association to Address
+	@Column(name="updated_at")
+	private Timestamp updatedAt;
+
+	//bi-directional many-to-one association to AdminLog
 	@OneToMany(mappedBy="user")
-	private List<Address> addresses;
+	private List<AdminLog> adminLogs;
 
 	//bi-directional many-to-one association to Cart
 	@OneToMany(mappedBy="user")
 	private List<Cart> carts;
 
+	//bi-directional many-to-one association to Notification
+	@OneToMany(mappedBy="user")
+	private List<Notification> notifications;
+
 	//bi-directional many-to-one association to Order
 	@OneToMany(mappedBy="user")
 	private List<Order> orders;
 
-	//bi-directional many-to-one association to Otp
+	//bi-directional many-to-one association to ProductReview
 	@OneToMany(mappedBy="user")
-	private List<Otp> otps;
+	private List<ProductReview> productReviews;
 
-	//bi-directional many-to-many association to Role
-	@ManyToMany
-	@JoinTable(
-		name="user_roles"
-		, joinColumns={
-			@JoinColumn(name="user_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="role_id")
-			}
-		)
-	private List<Role> roles;
+	//bi-directional many-to-one association to ProductView
+	@OneToMany(mappedBy="user")
+	private List<ProductView> productViews;
+
+	//bi-directional many-to-one association to ReturnRequest
+	@OneToMany(mappedBy="user")
+	private List<ReturnRequest> returnRequests;
+
+	//bi-directional many-to-one association to UserAddress
+	@OneToMany(mappedBy="user")
+	private List<UserAddress> userAddresses;
+
+	//bi-directional many-to-one association to UserCouponUsage
+	@OneToMany(mappedBy="user")
+	private List<UserCouponUsage> userCouponUsages;
+
+	//bi-directional many-to-one association to UserRole
+	@OneToMany(mappedBy="user")
+	private List<UserRole> userRoles;
 
 	//bi-directional many-to-one association to Wishlist
 	@OneToMany(mappedBy="user")
@@ -91,12 +109,28 @@ public class User implements Serializable {
 		this.userId = userId;
 	}
 
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public String getAlternateMobileNumber() {
 		return this.alternateMobileNumber;
 	}
 
 	public void setAlternateMobileNumber(String alternateMobileNumber) {
 		this.alternateMobileNumber = alternateMobileNumber;
+	}
+
+	public Timestamp getCreatedAt() {
+		return this.createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public Date getDob() {
@@ -147,14 +181,6 @@ public class User implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
-	public String getLocation() {
-		return this.location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
 	public String getMobileNumber() {
 		return this.mobileNumber;
 	}
@@ -171,26 +197,34 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public List<Address> getAddresses() {
-		return this.addresses;
+	public Timestamp getUpdatedAt() {
+		return this.updatedAt;
 	}
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
-	public Address addAddress(Address address) {
-		getAddresses().add(address);
-		address.setUser(this);
-
-		return address;
+	public List<AdminLog> getAdminLogs() {
+		return this.adminLogs;
 	}
 
-	public Address removeAddress(Address address) {
-		getAddresses().remove(address);
-		address.setUser(null);
+	public void setAdminLogs(List<AdminLog> adminLogs) {
+		this.adminLogs = adminLogs;
+	}
 
-		return address;
+	public AdminLog addAdminLog(AdminLog adminLog) {
+		getAdminLogs().add(adminLog);
+		adminLog.setUser(this);
+
+		return adminLog;
+	}
+
+	public AdminLog removeAdminLog(AdminLog adminLog) {
+		getAdminLogs().remove(adminLog);
+		adminLog.setUser(null);
+
+		return adminLog;
 	}
 
 	public List<Cart> getCarts() {
@@ -215,6 +249,28 @@ public class User implements Serializable {
 		return cart;
 	}
 
+	public List<Notification> getNotifications() {
+		return this.notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
+
+	public Notification addNotification(Notification notification) {
+		getNotifications().add(notification);
+		notification.setUser(this);
+
+		return notification;
+	}
+
+	public Notification removeNotification(Notification notification) {
+		getNotifications().remove(notification);
+		notification.setUser(null);
+
+		return notification;
+	}
+
 	public List<Order> getOrders() {
 		return this.orders;
 	}
@@ -237,34 +293,136 @@ public class User implements Serializable {
 		return order;
 	}
 
-	public List<Otp> getOtps() {
-		return this.otps;
+	public List<ProductReview> getProductReviews() {
+		return this.productReviews;
 	}
 
-	public void setOtps(List<Otp> otps) {
-		this.otps = otps;
+	public void setProductReviews(List<ProductReview> productReviews) {
+		this.productReviews = productReviews;
 	}
 
-	public Otp addOtp(Otp otp) {
-		getOtps().add(otp);
-		otp.setUser(this);
+	public ProductReview addProductReview(ProductReview productReview) {
+		getProductReviews().add(productReview);
+		productReview.setUser(this);
 
-		return otp;
+		return productReview;
 	}
 
-	public Otp removeOtp(Otp otp) {
-		getOtps().remove(otp);
-		otp.setUser(null);
+	public ProductReview removeProductReview(ProductReview productReview) {
+		getProductReviews().remove(productReview);
+		productReview.setUser(null);
 
-		return otp;
+		return productReview;
 	}
 
-	public List<Role> getRoles() {
-		return this.roles;
+	public List<ProductView> getProductViews() {
+		return this.productViews;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setProductViews(List<ProductView> productViews) {
+		this.productViews = productViews;
+	}
+
+	public ProductView addProductView(ProductView productView) {
+		getProductViews().add(productView);
+		productView.setUser(this);
+
+		return productView;
+	}
+
+	public ProductView removeProductView(ProductView productView) {
+		getProductViews().remove(productView);
+		productView.setUser(null);
+
+		return productView;
+	}
+
+	public List<ReturnRequest> getReturnRequests() {
+		return this.returnRequests;
+	}
+
+	public void setReturnRequests(List<ReturnRequest> returnRequests) {
+		this.returnRequests = returnRequests;
+	}
+
+	public ReturnRequest addReturnRequest(ReturnRequest returnRequest) {
+		getReturnRequests().add(returnRequest);
+		returnRequest.setUser(this);
+
+		return returnRequest;
+	}
+
+	public ReturnRequest removeReturnRequest(ReturnRequest returnRequest) {
+		getReturnRequests().remove(returnRequest);
+		returnRequest.setUser(null);
+
+		return returnRequest;
+	}
+
+	public List<UserAddress> getUserAddresses() {
+		return this.userAddresses;
+	}
+
+	public void setUserAddresses(List<UserAddress> userAddresses) {
+		this.userAddresses = userAddresses;
+	}
+
+	public UserAddress addUserAddress(UserAddress userAddress) {
+		getUserAddresses().add(userAddress);
+		userAddress.setUser(this);
+
+		return userAddress;
+	}
+
+	public UserAddress removeUserAddress(UserAddress userAddress) {
+		getUserAddresses().remove(userAddress);
+		userAddress.setUser(null);
+
+		return userAddress;
+	}
+
+	public List<UserCouponUsage> getUserCouponUsages() {
+		return this.userCouponUsages;
+	}
+
+	public void setUserCouponUsages(List<UserCouponUsage> userCouponUsages) {
+		this.userCouponUsages = userCouponUsages;
+	}
+
+	public UserCouponUsage addUserCouponUsage(UserCouponUsage userCouponUsage) {
+		getUserCouponUsages().add(userCouponUsage);
+		userCouponUsage.setUser(this);
+
+		return userCouponUsage;
+	}
+
+	public UserCouponUsage removeUserCouponUsage(UserCouponUsage userCouponUsage) {
+		getUserCouponUsages().remove(userCouponUsage);
+		userCouponUsage.setUser(null);
+
+		return userCouponUsage;
+	}
+
+	public List<UserRole> getUserRoles() {
+		return this.userRoles;
+	}
+
+	public void setUserRoles(List<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
+
+	public UserRole addUserRole(UserRole userRole) {
+		getUserRoles().add(userRole);
+		userRole.setUser(this);
+
+		return userRole;
+	}
+
+	public UserRole removeUserRole(UserRole userRole) {
+		getUserRoles().remove(userRole);
+		userRole.setUser(null);
+
+		return userRole;
 	}
 
 	public List<Wishlist> getWishlists() {

@@ -6,26 +6,27 @@ import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the wishlist database table.
+ * The persistent class for the product_views database table.
  * 
  */
 @Entity
-@NamedQuery(name="Wishlist.findAll", query="SELECT w FROM Wishlist w")
-public class Wishlist implements Serializable {
+@Table(name="product_views")
+@NamedQuery(name="ProductView.findAll", query="SELECT p FROM ProductView p")
+public class ProductView implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="wishlist_id")
-	private int wishlistId;
-
-	@Column(name="created_at")
-	private Timestamp createdAt;
+	@Column(name="view_id")
+	private int viewId;
 
 	@Column(name="is_deleted")
 	private int isDeleted;
 
 	@Column(name="updated_at")
 	private Timestamp updatedAt;
+
+	@Column(name="viewed_at")
+	private Timestamp viewedAt;
 
 	//bi-directional many-to-one association to Product
 	@ManyToOne
@@ -37,23 +38,15 @@ public class Wishlist implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user;
 
-	public Wishlist() {
+	public ProductView() {
 	}
 
-	public int getWishlistId() {
-		return this.wishlistId;
+	public int getViewId() {
+		return this.viewId;
 	}
 
-	public void setWishlistId(int wishlistId) {
-		this.wishlistId = wishlistId;
-	}
-
-	public Timestamp getCreatedAt() {
-		return this.createdAt;
-	}
-
-	public void setCreatedAt(Timestamp createdAt) {
-		this.createdAt = createdAt;
+	public void setViewId(int viewId) {
+		this.viewId = viewId;
 	}
 
 	public int getIsDeleted() {
@@ -70,6 +63,14 @@ public class Wishlist implements Serializable {
 
 	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public Timestamp getViewedAt() {
+		return this.viewedAt;
+	}
+
+	public void setViewedAt(Timestamp viewedAt) {
+		this.viewedAt = viewedAt;
 	}
 
 	public Product getProduct() {

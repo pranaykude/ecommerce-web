@@ -19,5 +19,5 @@ public class userResponseModel {
 	private String alternateMobileNumber;
 	private String location ;
 	private String hintName;
-	
+	private int isDeleted;
 }
