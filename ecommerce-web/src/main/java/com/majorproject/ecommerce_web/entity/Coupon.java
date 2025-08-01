@@ -19,6 +19,7 @@ public class Coupon implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="coupon_id")
 	private int couponId;
 

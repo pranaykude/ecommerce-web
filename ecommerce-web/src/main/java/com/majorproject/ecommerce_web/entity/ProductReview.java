@@ -16,6 +16,7 @@ public class ProductReview implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="review_id")
 	private int reviewId;
 
@@ -33,15 +34,13 @@ public class ProductReview implements Serializable {
 	@Column(name="updated_at")
 	private Timestamp updatedAt;
 
+	@Column(name="user_id")
+	private int userId;
+
 	//bi-directional many-to-one association to ProductVariant
 	@ManyToOne
 	@JoinColumn(name="product_variant_id")
 	private ProductVariant productVariant;
-
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user;
 
 	public ProductReview() {
 	}
@@ -94,20 +93,20 @@ public class ProductReview implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
+	public int getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 	public ProductVariant getProductVariant() {
 		return this.productVariant;
 	}
 
 	public void setProductVariant(ProductVariant productVariant) {
 		this.productVariant = productVariant;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 }

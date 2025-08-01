@@ -16,6 +16,7 @@ public class ProductView implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="view_id")
 	private int viewId;
 
@@ -25,6 +26,9 @@ public class ProductView implements Serializable {
 	@Column(name="updated_at")
 	private Timestamp updatedAt;
 
+	@Column(name="user_id")
+	private int userId;
+
 	@Column(name="viewed_at")
 	private Timestamp viewedAt;
 
@@ -32,11 +36,6 @@ public class ProductView implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="product_id")
 	private Product product;
-
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user;
 
 	public ProductView() {
 	}
@@ -65,6 +64,14 @@ public class ProductView implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
+	public int getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 	public Timestamp getViewedAt() {
 		return this.viewedAt;
 	}
@@ -79,14 +86,6 @@ public class ProductView implements Serializable {
 
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 }

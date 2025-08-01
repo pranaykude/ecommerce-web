@@ -16,6 +16,7 @@ public class UserCouponUsage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="usage_id")
 	private int usageId;
 

@@ -1,172 +1,154 @@
 package com.majorproject.ecommerce_web.entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import java.io.Serializable;
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 
+
+/**
+ * The persistent class for the website_assets database table.
+ * 
+ */
 @Entity
-@Table(name = "website_assets")
-
+@Table(name="website_assets")
+@NamedQuery(name="WebsiteAsset.findAll", query="SELECT w FROM WebsiteAsset w")
 public class WebsiteAsset implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="asset_id")
+	private int assetId;
 
-    public enum AssetType {
-        LOGO, BANNER, PROMOTION
-    }
+	@Column(name="created_at")
+	private Timestamp createdAt;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "asset_id")
-    private int assetId;
+	@Column(name="end_time")
+	private Timestamp endTime;
 
-    
-//	@Enumerated(EnumType.STRING)
-//	@Column(nullable = true, columnDefinition = "enum('PENDING','RESOLVED','CLOSED') default 'PENDING'")
-	
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "enum('LOGO','BANNER','PROMOTION') default 'BANNER'")
-    private AssetType type;
+	@Column(name="image_url")
+	private String imageUrl;
 
-    @Column(name = "image_url", length = 255)
-    private String imageUrl;
+	@Column(name="is_active")
+	private byte isActive;
 
-    @Column(name = "video_url", length = 255)
-    private String videoUrl;
+	@Column(name="is_deleted")
+	private int isDeleted;
 
-    @Column(name = "overlay_text", length = 255)
-    private String overlayText;
+	@Column(name="link_url")
+	private String linkUrl;
 
-    @Column(name = "link_url", length = 255)
-    private String linkUrl;
+	@Column(name="overlay_text")
+	private String overlayText;
 
-    @Column(name = "is_active", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
-    private boolean isActive = true;
+	@Column(name="start_time")
+	private Timestamp startTime;
 
-    @Column(name = "is_deleted", nullable = false, columnDefinition = "INT DEFAULT 0")
-    private boolean isDeleted = false;
+	private String type;
 
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private Timestamp createdAt;
+	@Column(name="updated_at")
+	private Timestamp updatedAt;
 
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
-    private Timestamp updatedAt;
+	@Column(name="video_url")
+	private String videoUrl;
 
-    @Column(name = "start_time")
-    private Timestamp startTime;
-
-    @Column(name = "end_time")
-    private Timestamp endTime;
-
-    public WebsiteAsset() {
-    }
+	public WebsiteAsset() {
+	}
 
 	public int getAssetId() {
-		return assetId;
+		return this.assetId;
 	}
 
 	public void setAssetId(int assetId) {
 		this.assetId = assetId;
 	}
 
-	public AssetType getType() {
-		return type;
-	}
-
-	public void setType(AssetType type) {
-		this.type = type;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public String getVideoUrl() {
-		return videoUrl;
-	}
-
-	public void setVideoUrl(String videoUrl) {
-		this.videoUrl = videoUrl;
-	}
-
-	public String getOverlayText() {
-		return overlayText;
-	}
-
-	public void setOverlayText(String overlayText) {
-		this.overlayText = overlayText;
-	}
-
-	public String getLinkUrl() {
-		return linkUrl;
-	}
-
-	public void setLinkUrl(String linkUrl) {
-		this.linkUrl = linkUrl;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
 	public Timestamp getCreatedAt() {
-		return createdAt;
+		return this.createdAt;
 	}
 
 	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Timestamp getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Timestamp updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public Timestamp getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
-	}
-
 	public Timestamp getEndTime() {
-		return endTime;
+		return this.endTime;
 	}
 
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getImageUrl() {
+		return this.imageUrl;
 	}
-    
-    
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public byte getIsActive() {
+		return this.isActive;
+	}
+
+	public void setIsActive(byte isActive) {
+		this.isActive = isActive;
+	}
+
+	public int getIsDeleted() {
+		return this.isDeleted;
+	}
+
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public String getLinkUrl() {
+		return this.linkUrl;
+	}
+
+	public void setLinkUrl(String linkUrl) {
+		this.linkUrl = linkUrl;
+	}
+
+	public String getOverlayText() {
+		return this.overlayText;
+	}
+
+	public void setOverlayText(String overlayText) {
+		this.overlayText = overlayText;
+	}
+
+	public Timestamp getStartTime() {
+		return this.startTime;
+	}
+
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getType() {
+		return this.type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Timestamp getUpdatedAt() {
+		return this.updatedAt;
+	}
+
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public String getVideoUrl() {
+		return this.videoUrl;
+	}
+
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
+	}
+
 }

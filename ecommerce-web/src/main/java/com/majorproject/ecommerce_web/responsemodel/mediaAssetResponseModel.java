@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class mediaAssetResponseModel {
 
 
+	private Integer assetId;
 	private String type;
 	private String  imageUrl;
 	private String videoUrl;

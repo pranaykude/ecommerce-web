@@ -22,7 +22,6 @@ public class Order implements Serializable {
 	@Column(name="is_deleted")
 	private int isDeleted;
 
-	@Id
 	@Column(name="order_id")
 	private int orderId;
 

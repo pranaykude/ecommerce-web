@@ -17,6 +17,7 @@ public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="city_id")
 	private int cityId;
 

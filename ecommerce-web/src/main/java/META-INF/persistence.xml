@@ -14,9 +14,6 @@
 		<class>com.majorproject.ecommerce_web.entity.OrderItem</class>
 		<class>com.majorproject.ecommerce_web.entity.Order</class>
 		<class>com.majorproject.ecommerce_web.entity.Payment</class>
-		<class>com.majorproject.ecommerce_web.entity.ProductReview</class>
-		<class>com.majorproject.ecommerce_web.entity.ProductVariant</class>
-		<class>com.majorproject.ecommerce_web.entity.ProductView</class>
 		<class>com.majorproject.ecommerce_web.entity.ReturnRequest</class>
 		<class>com.majorproject.ecommerce_web.entity.Role</class>
 		<class>com.majorproject.ecommerce_web.entity.ShipmentTracking</class>
@@ -25,9 +22,11 @@
 		<class>com.majorproject.ecommerce_web.entity.UserAddress</class>
 		<class>com.majorproject.ecommerce_web.entity.UserCouponUsage</class>
 		<class>com.majorproject.ecommerce_web.entity.UserRole</class>
-		<class>com.majorproject.ecommerce_web.entity.UserRolePK</class>
 		<class>com.majorproject.ecommerce_web.entity.User</class>
 		<class>com.majorproject.ecommerce_web.entity.WebsiteAsset</class>
 		<class>com.majorproject.ecommerce_web.entity.Wishlist</class>
+		<class>com.majorproject.ecommerce_web.entity.ProductReview</class>
+		<class>com.majorproject.ecommerce_web.entity.ProductVariant</class>
+		<class>com.majorproject.ecommerce_web.entity.ProductView</class>
 	</persistence-unit>
 </persistence>

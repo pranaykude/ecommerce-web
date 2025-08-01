@@ -15,8 +15,12 @@ import java.sql.Timestamp;
 public class UserRole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private UserRolePK id;
+
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="user_rolesid")
+	private Integer userRoleId;
 
 	@Column(name="created_at")
 	private Timestamp createdAt;
@@ -40,13 +44,7 @@ public class UserRole implements Serializable {
 	public UserRole() {
 	}
 
-	public UserRolePK getId() {
-		return this.id;
-	}
-
-	public void setId(UserRolePK id) {
-		this.id = id;
-	}
+	
 
 	public Timestamp getCreatedAt() {
 		return this.createdAt;

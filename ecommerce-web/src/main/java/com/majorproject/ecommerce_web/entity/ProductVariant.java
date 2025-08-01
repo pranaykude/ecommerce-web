@@ -18,6 +18,7 @@ public class ProductVariant implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="variant_id")
 	private int variantId;
 
@@ -39,10 +40,6 @@ public class ProductVariant implements Serializable {
 
 	@Column(name="updated_at")
 	private Timestamp updatedAt;
-
-	//bi-directional many-to-one association to Cart
-	@OneToMany(mappedBy="productVariant")
-	private List<Cart> carts;
 
 	//bi-directional many-to-one association to ProductReview
 	@OneToMany(mappedBy="productVariant")
@@ -126,28 +123,6 @@ public class ProductVariant implements Serializable {
 
 	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-
-	public List<Cart> getCarts() {
-		return this.carts;
-	}
-
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
-	}
-
-	public Cart addCart(Cart cart) {
-		getCarts().add(cart);
-		cart.setProductVariant(this);
-
-		return cart;
-	}
-
-	public Cart removeCart(Cart cart) {
-		getCarts().remove(cart);
-		cart.setProductVariant(null);
-
-		return cart;
 	}
 
 	public List<ProductReview> getProductReviews() {

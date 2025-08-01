@@ -16,6 +16,7 @@ public class Notification implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="notification_id")
 	private int notificationId;
 

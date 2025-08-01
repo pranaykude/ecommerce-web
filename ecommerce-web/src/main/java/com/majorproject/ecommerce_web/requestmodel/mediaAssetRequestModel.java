@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class mediaAssetRequestModel {
 
+	private Integer assetId;
 	private String type;
 	private MultipartFile imageUrl;
 	private MultipartFile  videoUrl;
@@ -18,10 +19,6 @@ public class mediaAssetRequestModel {
 	private Boolean isActive;
 	private Timestamp startTime;
 	private Timestamp endTime;
-	
-	
-	
-	
-	
+
 	
 }

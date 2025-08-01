@@ -12,6 +12,7 @@ public class mediaAssetEntityToModel {
 	public mediaAssetResponseModel mediaresponse (WebsiteAsset asset) {
 	
 		mediaAssetResponseModel response = new mediaAssetResponseModel();
+		response.setAssetId(asset.getAssetId());
 	    response.setType(asset.getType().name());
 	    response.setImageUrl(asset.getImageUrl());
 	    response.setVideoUrl(asset.getVideoUrl());
