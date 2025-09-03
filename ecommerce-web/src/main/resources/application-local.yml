@@ -1,0 +1,49 @@
+spring:
+  name: ecommerce-local
+  datasource:
+    platform: mysql
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/myntra_clonee
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari: 
+      minimumIdle: 5
+      maximumPoolSize: 10
+      idleTimeout: 30000
+      poolName: ecommerce-pool-local	
+      maxLifetime: 2000000
+      connecetionTimeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: false
+    show-sql: false
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+
+  jackson: 
+    serialization:
+      write-dates-as-timestamps: false
+
+server:
+  port: 1024
+  servlet:
+    context-path: /ecommerce-api-local
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    com.majorproject.ecommerce_web: DEBUG
+
+file:
+  upload-dir: upload/
